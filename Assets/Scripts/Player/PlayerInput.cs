@@ -2,10 +2,18 @@
 
 public class PlayerInput : MonoBehaviour
 {
+    //first fire
     public string fireButtonName = "Fire1";
+    //right fire
+    public string secondButtonName = "Fire2";
+
+    //space
     public string jumpButtonName = "Jump";
+    
     public string moveHorizontalAxisName = "Horizontal";
     public string moveVerticalAxisName = "Vertical";
+    
+    //r
     public string reloadButtonName = "Reload";
 
     public Vector2 moveInput { get; private set; }

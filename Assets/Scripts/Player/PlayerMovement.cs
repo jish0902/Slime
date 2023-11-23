@@ -6,8 +6,6 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private Animator animator;
     
-    private Camera followCam;
-    
     public float speed = 6f;
     public float jumpVelocity = 20f;
     [Range(0.01f, 1f)] public float airControlPercent;
