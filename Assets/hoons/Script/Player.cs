@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Boolean is_dead;
     public int cur_health;
     public int max_health = 3;
     public float speed = 10;
     public float turnspeed = 20.0f;
+
+    public GameObject water;
+    public GameObject fire;
+    public GameObject spawn;
+
 
 
     Vector3 movement;
@@ -19,13 +25,21 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        is_dead = false;
         rb = GetComponent<Rigidbody>();
         cur_health = max_health;
     }
 
     void Update()
     {
-
+        
+        if (is_dead)
+        {
+            Debug.Log("dead");
+            transform.position = spawn.transform.position;
+            is_dead = false;
+        }
+        
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         float horizontal = Input.GetAxis("Horizontal");
@@ -39,12 +53,22 @@ public class Player : MonoBehaviour
 
         transform.rotation = rotation;
         transform.Translate(movement * speed * Time.deltaTime, Space.World);
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+
+            Instantiate(water, transform.position, transform.rotation);
+        }
+        if (Input.GetKeyDown(KeyCode.X ))
+        {
+
+            Instantiate(fire, transform.position, transform.rotation);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            rb.velocity = Vector3.zero;
             collision.rigidbody.velocity = Vector3.zero;
             collision.rigidbody.angularVelocity = Vector3.zero;
             rb.freezeRotation = true;

@@ -102,9 +102,6 @@ public class WaterSlime : MonoBehaviour
                     agent.isStopped = true;
                     if (attackDelay < time_after_attack)
                     {
-                        
-                        
-                        Debug.Log("Attack!!");
                         Attack();
                         time_after_attack = 0;
                     }
@@ -156,8 +153,6 @@ public class WaterSlime : MonoBehaviour
         //물슬라임의 경우 물 구체 프리팹을 발사하고 플레이어가 맞는다면 hp감소
         if(attackRange >= distance_of_slime_to_player)
         {
-            
-            Debug.Log("wb spawn");
             Instantiate(waterBall, waterBallSpawn.transform.position, waterBallSpawn.transform.rotation);
         }
 
