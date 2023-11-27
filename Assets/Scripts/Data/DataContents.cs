@@ -1,33 +1,26 @@
 using System;
 using System.Collections.Generic;
-using Google.Protobuf.Protocol;
 
 namespace Server.Data
 {
-    
-
-    #region Item
+	#region Item
     [Serializable]
     public class ItemData
     {
     	public int id;
     	public string name;
-    	public ItemType itemType;
-
     }
     
-    public class ConsumableData : ItemData
+    public class StoneData : ItemData
     {
-    	public ConsumableType consumableType;
     	public int MaxCount;
     }
 
     [Serializable]
     public class ItemLoader : ILoader<int, ItemData>
     {
-    	public List<WeaponData> weapons = new List<WeaponData>();
-    	public List<ArmorData> armors = new List<ArmorData>();
-    	public List<ConsumableData> consumables = new List<ConsumableData>();
+    
+    	public List<StoneData> consumables = new List<StoneData>();
 
     	public Dictionary<int, ItemData> MakeDict()
     	{
@@ -38,7 +31,6 @@ namespace Server.Data
     		
     		foreach (ItemData item in consumables)
     		{
-    			item.itemType = ItemType.Consumable;
     			dict.Add(item.id, item);
     		}
 
@@ -65,9 +57,7 @@ namespace Server.Data
         public int id;
         public string name;
         public List<RewardData> rewards;
-
-        public StatInfo stat;
-        //public string prefabPath;
+        
     }
 
     [Serializable]
