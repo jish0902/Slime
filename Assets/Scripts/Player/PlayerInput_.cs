@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput_ : MonoBehaviour
 {
     //first fire
     public string fireButtonName = "Fire1";
