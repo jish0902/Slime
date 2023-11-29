@@ -65,6 +65,7 @@ public class StandingState: State
  
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
         velocity.y = 0f;
+        
      
     }
  
@@ -73,6 +74,7 @@ public class StandingState: State
         base.LogicUpdate();
  
         character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
+        //character.animator.SetFloat("speed", input.magnitude);
  
         if (sprint)
         {
@@ -106,7 +108,8 @@ public class StandingState: State
         }
        
         currentVelocity = Vector3.SmoothDamp(currentVelocity, velocity,ref cVelocity, character.velocityDampTime);
-        character.controller.Move(currentVelocity * Time.deltaTime * playerSpeed + gravityVelocity * Time.deltaTime);
+        character.controller.Move(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
+        Debug.Log(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
   
         if (velocity.sqrMagnitude>0)
         {

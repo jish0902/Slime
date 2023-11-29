@@ -23,6 +23,7 @@ public class State
         character = _character;
         stateMachine = _stateMachine;
  
+        //get data from player input system
         moveAction = character.playerInput.actions["Move"];
         lookAction = character.playerInput.actions["Look"];
         jumpAction = character.playerInput.actions["Jump"];
@@ -36,6 +37,7 @@ public class State
     public virtual void Enter()
     {
         //StateUI.instance.SetStateText(this.ToString());
+        
         Debug.Log("Enter State: "+this.ToString());
     }
  
@@ -48,7 +50,7 @@ public class State
     }
  
     public virtual void PhysicsUpdate()
-    {
+    { 
     }
  
     public virtual void Exit()

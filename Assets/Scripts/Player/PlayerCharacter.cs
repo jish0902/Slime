@@ -30,7 +30,7 @@ public class PlayerCharacter : MonoBehaviour
     public SprintJumpState sprintjumping;
     public CombatState combatting;
     public AttackState attacking;
- 
+    
     [HideInInspector]
     public float gravityValue = -9.81f;
     [HideInInspector]
@@ -51,7 +51,7 @@ public class PlayerCharacter : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
         cameraTransform = Camera.main.transform;
  
