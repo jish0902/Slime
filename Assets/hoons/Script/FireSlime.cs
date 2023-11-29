@@ -40,9 +40,7 @@ public class FireSlime : MonoBehaviour
     {
         if(slime_hp <= 0)
         {
-            //hp°¡ 0ÀÏ½Ã ¾î¶² »óÅÂÀÌµç isDead·Î
-            animator.SetTrigger("isDead");
-            Destroy(gameObject, death_motion_time);
+            dead(); 
         }
 
         time_after_attack += Time.deltaTime;
@@ -51,35 +49,35 @@ public class FireSlime : MonoBehaviour
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            //´ë±â ÀÏ°æ¿ì °¡´ÉÇÏ´Ù¸é ½ºÆ÷³Ê ÁÖº¯¿¡ µ¹¾Æ´Ù´Ï´Â ±â´É
+            //ëŒ€ê¸° ì¼ê²½ìš° ê°€ëŠ¥í•˜ë‹¤ë©´ ìŠ¤í¬ë„ˆ ì£¼ë³€ì— ëŒì•„ë‹¤ë‹ˆëŠ” ê¸°ëŠ¥
             agent.isStopped = true;
             if(distance_of_slime_to_player <= detectRange)
             {
-                //ÇÃ·¹ÀÌ¾î°¡ °¨Áö ¹üÀ§ ¾È¿¡ ÀÖ´Ù 
-                //´ë±â -> Ãß°İ
+                //í”Œë ˆì´ì–´ê°€ ê°ì§€ ë²”ìœ„ ì•ˆì— ìˆë‹¤ 
+                //ëŒ€ê¸° -> ì¶”ê²©
                 Idle_to_Chasing();
             }
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chasing"))
         {
-            //Ãß°İ»óÅÂÀÏ °æ¿ì
+            //ì¶”ê²©ìƒíƒœì¼ ê²½ìš°
             Chasing();
             if (distance_of_slime_to_spawner >= limitRange || distance_of_slime_to_player > chasingRange)
             {
-                //½ºÆ÷³Ê¿Í ÇÑ°èÀÌ»ó ¶³¾îÁú °æ¿ì È¤Àº ÇÃ·¹ÀÌ¾î°¡ Ãß°İ¹üÀ§ ¹ÛÀÏ°æ¿ì 
-                //Ãß°İ -> ±ÍÈ¯
+                //ìŠ¤í¬ë„ˆì™€ í•œê³„ì´ìƒ ë–¨ì–´ì§ˆ ê²½ìš° í˜¹ì€ í”Œë ˆì´ì–´ê°€ ì¶”ê²©ë²”ìœ„ ë°–ì¼ê²½ìš° 
+                //ì¶”ê²© -> ê·€í™˜
                 Chasing_to_Return();
             }
             else if(distance_of_slime_to_player <= attackRange)
             {
-                //ÇÃ·¹ÀÌ¾î°¡ °ø°İ¹üÀ§¿¡ µé¾î¿Ã °æ¿ì
-                //Ãß°İ  -> °ø°İ
+                //í”Œë ˆì´ì–´ê°€ ê³µê²©ë²”ìœ„ì— ë“¤ì–´ì˜¬ ê²½ìš°
+                //ì¶”ê²©  -> ê³µê²©
                 Chasing_to_Attack();
             }
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            //°ø°İ
+            //ê³µê²©
             if (attackDelay < time_after_attack)
             {
 
@@ -89,8 +87,8 @@ public class FireSlime : MonoBehaviour
             
             if(distance_of_slime_to_player > attackRange && distance_of_slime_to_player <= chasingRange)
             {
-                //ÇÃ·¹ÀÌ¾î°¡ °ø°İ¹üÀ§ ¹Û¿¡ ÀÖ°í ÇÃ·¹ÀÌ¾î°¡ Ãß°İ ¹üÀ§¾È¿¡ ÀÖÀ» °æ¿ì
-                //°ø°İ -> Ãß°İ
+                //í”Œë ˆì´ì–´ê°€ ê³µê²©ë²”ìœ„ ë°–ì— ìˆê³  í”Œë ˆì´ì–´ê°€ ì¶”ê²© ë²”ìœ„ì•ˆì— ìˆì„ ê²½ìš°
+                //ê³µê²© -> ì¶”ê²©
                 Attack_to_Chasing();
             }
             
@@ -100,18 +98,18 @@ public class FireSlime : MonoBehaviour
             agent.isStopped = false;
             agent.stoppingDistance = 2;
             agent.SetDestination(spawner.transform.position);
-                //±ÍÈ¯ ±¸Çö
+                //ê·€í™˜ êµ¬í˜„
             
             if(distance_of_slime_to_spawner <= 1f)
             {
-                //½ºÆ÷³Ê¿ÍÀÇ °Å¸®°¡ 1ÀÌÇÏ ÀÏ°æ¿ì = ±ÍÈ¯ ¿Ï·á
-                //±ÍÈ¯ -> ´ë±â
+                //ìŠ¤í¬ë„ˆì™€ì˜ ê±°ë¦¬ê°€ 1ì´í•˜ ì¼ê²½ìš° = ê·€í™˜ ì™„ë£Œ
+                //ê·€í™˜ -> ëŒ€ê¸°
                 Return_to_Idle();
             }
             else if(distance_of_slime_to_player <= detectRange)
             {
-                //±ÍÈ¯ µµÁß ÇÃ·¹ÀÌ¾î°¡ °¨Áö ¹üÀ§¿¡ µé¾î¿ÔÀ» °æ¿ì
-                //±ÍÈ¯ -> Ãß°İ
+                //ê·€í™˜ ë„ì¤‘ í”Œë ˆì´ì–´ê°€ ê°ì§€ ë²”ìœ„ì— ë“¤ì–´ì™”ì„ ê²½ìš°
+                //ê·€í™˜ -> ì¶”ê²©
                 Return_to_Chasing();
             }
         }
@@ -132,9 +130,13 @@ public class FireSlime : MonoBehaviour
         }
         
     }
-
-
-
+    
+    private void dead()
+    {
+        //hpê°€ 0ì¼ì‹œ ì–´ë–¤ ìƒíƒœì´ë“  isDeadë¡œ
+        animator.SetTrigger("isDead");
+        Destroy(gameObject, death_motion_time);
+    }
 
     void Idle_to_Chasing()
     {
