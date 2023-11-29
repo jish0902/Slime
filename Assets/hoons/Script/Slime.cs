@@ -36,6 +36,23 @@ public class Slime : MonoBehaviour
         }
  
     }
+
+
+    void following(Vector3 target)
+    {
+        if(slime_to_player_distance < slime_distance)
+        {
+            
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            
+        }
+        else
+        {
+            agent.isStopped= false;
+            agent.SetDestination(player.position);
+        }
+    }
    
 
 }

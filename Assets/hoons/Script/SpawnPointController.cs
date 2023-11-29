@@ -8,10 +8,10 @@ public class SpawnPointController : MonoBehaviour
     public int max_spawn_slime_num = 3;
     public GameObject spawn_slime;
     float timer = 0;
+    
     void Awake()
     {
         curr_spawn_slime_num = 0;
-        
     }
 
     // Update is called once per frame

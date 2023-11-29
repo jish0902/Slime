@@ -1023,7 +1023,7 @@ Transform:
   m_Children:
   - {fileID: 3814972746516821246}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8086978703335482950
 MonoBehaviour:
@@ -1044,8 +1044,8 @@ MonoBehaviour:
   gravityMultiplier: 2
   rotationSpeed: 5
   crouchColliderHeight: 1.35
-  speedDampTime: 0.1
-  velocityDampTime: 0.9
+  speedDampTime: 0.063
+  velocityDampTime: 0
   rotationDampTime: 0.2
   airControl: 0.5
   gravityValue: -9.81
