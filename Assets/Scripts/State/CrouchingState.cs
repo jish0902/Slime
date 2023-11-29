@@ -82,8 +82,10 @@ public class CrouchingState : State
         }
         currentVelocity = Vector3.Lerp(currentVelocity, velocity, character.velocityDampTime);
  
-        character.controller.Move(currentVelocity * Time.deltaTime * playerSpeed + gravityVelocity * Time.deltaTime);
+        character.controller.Move(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
  
+        Debug.Log(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
+        
         if (velocity.magnitude > 0)
         {
             character.transform.rotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(velocity), character.rotationDampTime);
