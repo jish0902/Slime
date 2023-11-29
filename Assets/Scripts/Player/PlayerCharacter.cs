@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerCharacter : MonoBehaviour
 {
+    public float player_HP = 3;
+    public Boolean is_dead = false;
+
     [Header("Controls")]
     public float playerSpeed = 5.0f;
     public float crouchSpeed = 2.0f;

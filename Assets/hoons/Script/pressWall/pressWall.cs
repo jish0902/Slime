@@ -52,7 +52,7 @@ public class pressWall : MonoBehaviour
             if (left.col_left) {Debug.Log("col_l"); }
             if (left.col_left && right.col_right)
             {
-                player.GetComponent<Player>().is_dead = true;
+                player.GetComponent<PlayerCharacter>().is_dead = true;
                 
             }
 

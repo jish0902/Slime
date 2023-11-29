@@ -9,7 +9,6 @@ public class detect_gimic_script : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.CompareTag("Mushroom") && other.GetComponent<Mushroom>().is_growth == false)
         {
             uiText.text = "버섯을 성장시킬수 있다면...";
