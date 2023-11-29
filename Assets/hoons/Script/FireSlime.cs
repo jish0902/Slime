@@ -40,7 +40,9 @@ public class FireSlime : MonoBehaviour
     {
         if(slime_hp <= 0)
         {
-            dead(); 
+            //hp가 0일시 어떤 상태이든 isDead로
+            animator.SetTrigger("isDead");
+            Destroy(gameObject, death_motion_time);
         }
 
         time_after_attack += Time.deltaTime;
@@ -130,13 +132,9 @@ public class FireSlime : MonoBehaviour
         }
         
     }
-    
-    private void dead()
-    {
-        //hp가 0일시 어떤 상태이든 isDead로
-        animator.SetTrigger("isDead");
-        Destroy(gameObject, death_motion_time);
-    }
+
+
+
 
     void Idle_to_Chasing()
     {

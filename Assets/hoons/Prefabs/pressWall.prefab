@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 9014573170656485193}
   m_Layer: 0
   m_Name: pressWall
-  m_TagString: Untagged
+  m_TagString: Press_wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,7 @@ Transform:
   - {fileID: 4436505578842541281}
   - {fileID: 957635573699375468}
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4374798121371655627
 BoxCollider:

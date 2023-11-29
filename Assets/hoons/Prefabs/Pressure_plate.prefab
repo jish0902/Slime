@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1872111623030747301}
   m_Layer: 0
   m_Name: Pressure_plate
-  m_TagString: Untagged
+  m_TagString: Press_plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 5934035271835101632}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4016747009012210286
 MeshFilter:

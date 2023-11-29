@@ -109,7 +109,7 @@ public class StandingState: State
        
         currentVelocity = Vector3.SmoothDamp(currentVelocity, velocity,ref cVelocity, character.velocityDampTime);
         character.controller.Move(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
-        Debug.Log(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
+        //Debug.Log(currentVelocity * (Time.deltaTime * playerSpeed) + gravityVelocity * Time.deltaTime);
   
         if (velocity.sqrMagnitude>0)
         {

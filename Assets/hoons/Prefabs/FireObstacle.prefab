@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 873705914822597550}
   m_Layer: 0
   m_Name: FireObstacle
-  m_TagString: FireObstacle
+  m_TagString: FireWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,12 +30,12 @@ Transform:
   m_GameObject: {fileID: 2276956167654769671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.05, y: 1.03, z: 0.52}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6757923937278999610}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4736981552210818216
 MeshFilter:
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0bc69f5c1d29e488def85e2d639b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: WaterAttack
 --- !u!1 &5153123886493338354
 GameObject:
   m_ObjectHideFlags: 0
