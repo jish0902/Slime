@@ -18,7 +18,7 @@ public class WaterBall : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().cur_health -= 1;
+            other.gameObject.GetComponent<PlayerCharacter>().player_HP -= 1;
             Destroy(gameObject);
         }
         
