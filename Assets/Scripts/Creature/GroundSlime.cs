@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.HID;
 
-public class GroundSlime : MonoBehaviour
-{
+public class GroundSlime : Monster
+{ 
     NavMeshAgent agent;
     Animator animator;
 
     GameObject player;
     public GameObject spawner;
+    public GameObject projectile;
+    public Transform Launcher;
+    public Transform Player;
+    public float launchingVelocity;
 
     public int slime_hp;
     int slime_maxHp = 3;
@@ -23,10 +28,14 @@ public class GroundSlime : MonoBehaviour
     float time_after_attack = 0;
     float death_motion_time = 2;
 
+    float rotationSpeed = 10;
+    private RaycastHit hit;
+
 
     // Start is called before the first frame update
     void Awake()
     {
+        launchingVelocity = 1.5f;
         player = GameObject.Find("Player");
         slime_hp = slime_maxHp;
         agent = GetComponent<NavMeshAgent>();
@@ -39,7 +48,7 @@ public class GroundSlime : MonoBehaviour
     {
         if (slime_hp <= 0)
         {
-            //hp°¡ 0ÀÏ½Ã ¾î¶² »óÅÂÀÌµç isDead·Î
+            //hpê°€ 0ì¼ì‹œ ì–´ë–¤ ìƒíƒœì´ë“  isDeadë¡œ
             animator.SetTrigger("isDead");
             Destroy(gameObject, death_motion_time);
         }
@@ -50,47 +59,48 @@ public class GroundSlime : MonoBehaviour
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            //´ë±â ÀÏ°æ¿ì °¡´ÉÇÏ´Ù¸é ½ºÆ÷³Ê ÁÖº¯¿¡ µ¹¾Æ´Ù´Ï´Â ±â´É
+            //ëŒ€ê¸° ì¼ê²½ìš° ê°€ëŠ¥í•˜ë‹¤ë©´ ìŠ¤í¬ë„ˆ ì£¼ë³€ì— ëŒì•„ë‹¤ë‹ˆëŠ” ê¸°ëŠ¥
             agent.isStopped = true;
             if (distance_of_slime_to_player <= detectRange)
             {
-                //ÇÃ·¹ÀÌ¾î°¡ °¨Áö ¹üÀ§ ¾È¿¡ ÀÖ´Ù 
-                //´ë±â -> Ãß°Ý
+                //í”Œë ˆì´ì–´ê°€ ê°ì§€ ë²”ìœ„ ì•ˆì— ìžˆë‹¤ 
+                //ëŒ€ê¸° -> ì¶”ê²©
                 Idle_to_Chasing();
             }
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chasing"))
         {
-            //Ãß°Ý»óÅÂÀÏ °æ¿ì
+            //ì¶”ê²©ìƒíƒœì¼ ê²½ìš°
             Chasing();
             if (distance_of_slime_to_spawner >= limitRange || distance_of_slime_to_player > chasingRange)
             {
-                //½ºÆ÷³Ê¿Í ÇÑ°èÀÌ»ó ¶³¾îÁú °æ¿ì È¤Àº ÇÃ·¹ÀÌ¾î°¡ Ãß°Ý¹üÀ§ ¹ÛÀÏ°æ¿ì 
-                //Ãß°Ý -> ±ÍÈ¯
+                //ìŠ¤í¬ë„ˆì™€ í•œê³„ì´ìƒ ë–¨ì–´ì§ˆ ê²½ìš° í˜¹ì€ í”Œë ˆì´ì–´ê°€ ì¶”ê²©ë²”ìœ„ ë°–ì¼ê²½ìš° 
+                //ì¶”ê²© -> ê·€í™˜
                 Chasing_to_Return();
             }
             else if (distance_of_slime_to_player <= attackRange)
             {
-                //ÇÃ·¹ÀÌ¾î°¡ °ø°Ý¹üÀ§¿¡ µé¾î¿Ã °æ¿ì
-                //Ãß°Ý  -> °ø°Ý
+                //í”Œë ˆì´ì–´ê°€ ê³µê²©ë²”ìœ„ì— ë“¤ì–´ì˜¬ ê²½ìš°
+                //ì¶”ê²©  -> ê³µê²©
                 Chasing_to_Attack();
             }
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            //°ø°Ý
+            Vector3 target = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+            transform.LookAt(target);
+            Debug.DrawRay(transform.position, transform.forward * attackRange, Color.blue, 0.3f);
             if (attackDelay < time_after_attack)
             {
-
-                Debug.Log("Attack!!");
                 Attack();
                 time_after_attack = 0;
             }
 
+
             if (distance_of_slime_to_player > attackRange && distance_of_slime_to_player <= chasingRange)
             {
-                //ÇÃ·¹ÀÌ¾î°¡ °ø°Ý¹üÀ§ ¹Û¿¡ ÀÖ°í ÇÃ·¹ÀÌ¾î°¡ Ãß°Ý ¹üÀ§¾È¿¡ ÀÖÀ» °æ¿ì
-                //°ø°Ý -> Ãß°Ý
+                //í”Œë ˆì´ì–´ê°€ ê³µê²©ë²”ìœ„ ë°–ì— ìžˆê³  í”Œë ˆì´ì–´ê°€ ì¶”ê²© ë²”ìœ„ì•ˆì— ìžˆì„ ê²½ìš°
+                //ê³µê²© -> ì¶”ê²©
                 Attack_to_Chasing();
             }
 
@@ -100,18 +110,18 @@ public class GroundSlime : MonoBehaviour
             agent.isStopped = false;
             agent.stoppingDistance = 2;
             agent.SetDestination(spawner.transform.position);
-            //±ÍÈ¯ ±¸Çö
+            //ê·€í™˜ êµ¬í˜„
 
             if (distance_of_slime_to_spawner <= 1f)
             {
-                //½ºÆ÷³Ê¿ÍÀÇ °Å¸®°¡ 1ÀÌÇÏ ÀÏ°æ¿ì = ±ÍÈ¯ ¿Ï·á
-                //±ÍÈ¯ -> ´ë±â
+                //ìŠ¤í¬ë„ˆì™€ì˜ ê±°ë¦¬ê°€ 1ì´í•˜ ì¼ê²½ìš° = ê·€í™˜ ì™„ë£Œ
+                //ê·€í™˜ -> ëŒ€ê¸°
                 Return_to_Idle();
             }
             else if (distance_of_slime_to_player <= detectRange)
             {
-                //±ÍÈ¯ µµÁß ÇÃ·¹ÀÌ¾î°¡ °¨Áö ¹üÀ§¿¡ µé¾î¿ÔÀ» °æ¿ì
-                //±ÍÈ¯ -> Ãß°Ý
+                //ê·€í™˜ ë„ì¤‘ í”Œë ˆì´ì–´ê°€ ê°ì§€ ë²”ìœ„ì— ë“¤ì–´ì™”ì„ ê²½ìš°
+                //ê·€í™˜ -> ì¶”ê²©
                 Return_to_Chasing();
             }
         }
@@ -125,7 +135,21 @@ public class GroundSlime : MonoBehaviour
 
     private void Attack()
     {
-        //¶¥½½¶óÀÓÀÇ °æ¿ì ºÎÃ¤²Ã Àü¹æ ºÎÃ¤²Ã ¸ð¾çÀ¸·Î Ãæ°ÝÆÄ ¹ß»ê ÇÃ·¹ÀÌ¾î°¡ Ãæ°ÝÆÄ¿¡ ¸ÂÀ¸¸é hp°¨¼Ò
+        if (distance_of_slime_to_player <= attackRange)
+        {
+            //ë¬¼ìŠ¬ë¼ìž„ì˜ ê²½ìš° ë¬¼ êµ¬ì²´ í”„ë¦¬íŒ¹ì„ ë°œì‚¬í•˜ê³  í”Œë ˆì´ì–´ê°€ ë§žëŠ”ë‹¤ë©´ hpê°ì†Œ
+            if (attackRange >= distance_of_slime_to_player)
+            {
+                Vector3 direction = (player.transform.position - transform.position).normalized;
+                float distance = Vector3.Distance(player.transform.position, transform.position);
+                Quaternion toRotate = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate, rotationSpeed * Time.deltaTime);
+                var InstProj = Instantiate(projectile, Launcher.position, Launcher.rotation);
+                InstProj.GetComponent<Rigidbody>().velocity = Launcher.up * distance*launchingVelocity;
+                InstProj.GetComponent<GroundSlime_projectile>().owner = this;
+            }
+        }
+        
 
     }
 

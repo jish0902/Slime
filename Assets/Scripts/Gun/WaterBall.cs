@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WaterBall : MonoBehaviour
 {
-    private LivingEntity owner;
+    public LivingEntity owner;
     void Update()
     {
         transform.Translate(Vector3.forward * 0.01f);

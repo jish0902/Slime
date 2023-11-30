@@ -63,9 +63,7 @@ public class WaterSlime : Monster
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            Debug.Log("6");
             Attack_act();
-            
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Return"))
         {
@@ -86,7 +84,8 @@ public class WaterSlime : Monster
             //물슬라임의 경우 물 구체 프리팹을 발사하고 플레이어가 맞는다면 hp감소
             if (attackRange >= distance_of_slime_to_player)
             {
-                Instantiate(waterBall, waterBallSpawn.transform.position, waterBallSpawn.transform.rotation);
+                GameObject go =  Instantiate(waterBall, waterBallSpawn.transform.position, waterBallSpawn.transform.rotation);
+                go.GetComponent<WaterBall>().owner = this;
             }
         }
         
@@ -141,7 +140,6 @@ public class WaterSlime : Monster
         
         if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange))
         {
-            Debug.Log(hit.transform.tag);
             if (hit.transform.CompareTag("Wall"))
             {
                 agent.isStopped = false;

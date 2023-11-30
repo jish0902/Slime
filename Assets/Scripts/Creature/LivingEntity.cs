@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class LivingEntity : MonoBehaviour, IDamageable
@@ -36,7 +36,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
         lastDamagedTime = Time.time;
         health -= damageMessage.amount;
-        
+        Debug.Log(health);
         if (health <= 0) Die();
 
         return true;
