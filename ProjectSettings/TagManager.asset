@@ -15,6 +15,7 @@ TagManager:
   - Mushroom
   - FireWall
   - IceWall
+  - Ground
   layers:
   - Default
   - TransparentFX
