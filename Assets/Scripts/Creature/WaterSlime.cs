@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WaterSlime : MonoBehaviour
+public class WaterSlime : Monster
 {
     RaycastHit hit;
     NavMeshAgent agent;
     Animator animator;
-    Rigidbody rb;
+    
     GameObject player;
     public GameObject waterBall;
     public GameObject waterBallSpawn;
     public GameObject spawner;
 
-    public int slime_hp;
-    int slime_maxHp = 3;
     float distance_of_slime_to_player;
     float distance_of_slime_to_spawner;
+    
     float attackRange = 15;
     float chasingRange = 20;
     float detectRange = 10;
@@ -27,24 +26,28 @@ public class WaterSlime : MonoBehaviour
     float death_motion_time = 2;
 
 
-    // Start is called before the first frame update
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        OnEnable();
         player = GameObject.Find("Player");
-        slime_hp = slime_maxHp;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
     }
 
-    // Update is called once per frame
+    
+    public override bool ApplyDamage(DamageMessage damageMessage)
+    {
+        //데미지 받으면 0.1초 자동 무적, health가 0일시 DIE호출
+        bool ishit = base.ApplyDamage(damageMessage);
+          
+        return ishit;
+    }
+
+
+    
      void Update()
     {
-        if(slime_hp <= 0)
-        {
-            dead();
-        }
 
         time_after_attack += Time.deltaTime;
         distance_of_slime_to_player = Vector3.Distance(player.transform.position, transform.position);
@@ -89,11 +92,18 @@ public class WaterSlime : MonoBehaviour
         
     }
 
-    private void dead() {
+    
+    public override void Die()
+    {
         //hp가 0일시 어떤 상태이든 isDead로
         animator.SetTrigger("isDead");
         Destroy(gameObject, death_motion_time);
+        base.Die();
+        
+        
     }
+
+
     private void Idle_act() {
         //대기 일경우 가능하다면 스포너 주변에 돌아다니는 기능
         agent.isStopped = true;

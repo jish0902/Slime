@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FireSlime : MonoBehaviour 
+public class FireSlime : Monster 
 {
     
     NavMeshAgent agent;
@@ -12,8 +12,6 @@ public class FireSlime : MonoBehaviour
     GameObject player;
     public GameObject spawner;
     
-    public int slime_hp;
-    int slime_maxHp=3;
     float distance_of_slime_to_player;
     float distance_of_slime_to_spawner;
 
@@ -27,24 +25,27 @@ public class FireSlime : MonoBehaviour
     float death_motion_time =2;
 
     
-    // Start is called before the first frame update
+    
     void Awake()
     {
+        //반드시 추가해야함
+        OnEnable();
         player = GameObject.Find("Player");
-        slime_hp = slime_maxHp;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        
     }
 
-    // Update is called once per frame
+    public override bool ApplyDamage(DamageMessage damageMessage)
+    {
+        //데미지 받으면 0.1초 자동 무적, health가 0일시 DIE호출
+        bool ishit = base.ApplyDamage(damageMessage);
+          
+        return ishit;
+    }
+
+
     void Update()
     {
-        if(slime_hp <= 0)
-        {
-            dead();
-        }
-
         time_after_attack += Time.deltaTime;
         distance_of_slime_to_player = Vector3.Distance(player.transform.position, transform.position);
         distance_of_slime_to_spawner = Vector3.Distance(spawner.transform.position, transform.position);
@@ -74,21 +75,28 @@ public class FireSlime : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    private void Attack()
+    private void Attack() //변경
     {
         if (distance_of_slime_to_player <= attackRange)
         {
-            player.GetComponent<PlayerCharacter>().player_HP -= 1;
-            Debug.Log(player.GetComponent<PlayerCharacter>().player_HP);
-        }
-        
-    }
+            //player.GetComponent<PlayerCharacter>().player_HP -= 1;
 
-    private void dead() {
+            DamageMessage dm = new DamageMessage() { amount = monsterData.damage, damager = this.gameObject, };
+            player.GetComponent<PlayerCharacter>().ApplyDamage(dm);
+            Debug.Log(player.GetComponent<PlayerCharacter>().health);
+        }
+    }
+    
+    public override void Die()
+    {
         //hp가 0일시 어떤 상태이든 isDead로
         animator.SetTrigger("isDead");
         Destroy(gameObject, death_motion_time);
+        
+        base.Die();
     }
+
+
     private void Idle_act() {
         //대기 일경우 가능하다면 스포너 주변에 돌아다니는 기능
         agent.isStopped = true;
@@ -121,7 +129,6 @@ public class FireSlime : MonoBehaviour
         //공격
         if (attackDelay < time_after_attack)
         {
-
             Attack();
             time_after_attack = 0;
         }

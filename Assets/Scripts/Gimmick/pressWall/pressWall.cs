@@ -52,7 +52,12 @@ public class pressWall : MonoBehaviour
             if (left.col_left) {Debug.Log("col_l"); }
             if (left.col_left && right.col_right)
             {
-                player.GetComponent<PlayerCharacter>().is_dead = true;
+                DamageMessage dm = new DamageMessage()
+                {
+                    amount = 100, damager = this.gameObject
+                };
+
+                player.GetComponent<PlayerCharacter>().ApplyDamage(dm);
                 
             }
 

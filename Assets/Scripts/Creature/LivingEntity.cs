@@ -6,6 +6,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public float startingHealth = 100f;
     public float health { get; protected set; }
     public bool dead { get; protected set; }
+
+    public Define.CreatureType type;
     
     public event Action OnDeath;
     
@@ -53,4 +55,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         
         dead = true;
     }
+    
+    
+    
 }

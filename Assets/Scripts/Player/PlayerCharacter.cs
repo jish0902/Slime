@@ -1,11 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerCharacter : MonoBehaviour
+public class PlayerCharacter : LivingEntity
 {
-    public float player_HP = 3;
-    public Boolean is_dead = false;
-
     [Header("Controls")]
     public float playerSpeed = 5.0f;
     public float crouchSpeed = 2.0f;
@@ -74,7 +71,26 @@ public class PlayerCharacter : MonoBehaviour
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
     }
- 
+    
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+    
+    private void UpdateUI()
+    {
+        //Managers.UI.UpdateHealthText(dead ? 0f : health);
+    }
+
+    public override bool ApplyDamage(DamageMessage damageMessage)
+    {
+        if (!base.ApplyDamage(damageMessage)) return false;
+
+        
+        return true;
+    }
+    
+    
     private void Update()
     {
         movementSM.currentState.HandleInput();

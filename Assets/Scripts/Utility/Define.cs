@@ -29,4 +29,11 @@ public class Define
         RandomSpawn = 2,
     }
     
+    public enum CreatureType
+    {
+        Player,
+        Monster,
+        Gimmick
+    }
+    
 }

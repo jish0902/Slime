@@ -56,6 +56,8 @@ namespace Server.Data
     {
         public int id;
         public string name;
+        public float damage;
+        public int hp;
         public List<RewardData> rewards;
         
     }
