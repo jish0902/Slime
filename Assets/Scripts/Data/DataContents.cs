@@ -42,6 +42,15 @@ namespace Server.Data
 
     #region Mosnter
 
+    public enum AttributeType
+    {
+        none,
+        fire,
+        water,
+        soil,
+        all,
+    }
+    
     [Serializable]
     public class RewardData
     {
@@ -56,10 +65,25 @@ namespace Server.Data
     {
         public int id;
         public string name;
+        public int maxHp;
+        public AttributeType type;
+        public float attackRange;
+        public float damage;
+        public float attackSpeed;
+        public AttributeType weakness;
+        public List<RewardData> rewards;
+        public string prefabPath;
+    }
+    
+    [Serializable]
+    public class PlayerData
+    {
+        public string name;
         public float damage;
         public int hp;
         public List<RewardData> rewards;
-        
+        public float coolTime = 0.1f;
+
     }
 
     [Serializable]

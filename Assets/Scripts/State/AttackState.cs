@@ -1,6 +1,7 @@
 using UnityEngine;
 public class AttackState : State
 {
+    private float coolTiome => Managers.Data.PlayerData.coolTime;
     float timePassed;
     float clipLength;
     float clipSpeed;
@@ -36,19 +37,28 @@ public class AttackState : State
         base.LogicUpdate();
  
         timePassed += Time.deltaTime;
-        clipLength = character.animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
-        clipSpeed = character.animator.GetCurrentAnimatorStateInfo(1).speed;
- 
-        if (timePassed >= clipLength / clipSpeed && attack)
-        {
-            stateMachine.ChangeState(character.attacking);
-        }
-        if (timePassed >= clipLength / clipSpeed)
+        // clipLength = character.animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
+        // clipSpeed = character.animator.GetCurrentAnimatorStateInfo(1).speed;
+        //
+        // if (timePassed >= clipLength / clipSpeed && attack)
+        // {
+        //     stateMachine.ChangeState(character.attacking);
+        // }
+        // if (timePassed >= clipLength / clipSpeed)
+        // {
+        //     stateMachine.ChangeState(character.combatting);
+        //     character.animator.SetTrigger("move");
+        // }
+
+
+        Debug.Log("attack");
+        if (timePassed >= coolTiome)
         {
             stateMachine.ChangeState(character.combatting);
             character.animator.SetTrigger("move");
         }
- 
+        
+      
     }
     public override void Exit()
     {
