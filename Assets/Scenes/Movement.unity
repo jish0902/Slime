@@ -393,7 +393,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199868541}
-  m_LocalRotation: {x: 0.54881346, y: 0.000000066512065, z: -0.000000043666414, w: 0.83594483}
+  m_LocalRotation: {x: 0.5488136, y: -0.000000029191556, z: 0.000000019164807, w: 0.83594483}
   m_LocalPosition: {x: 0, y: 3, z: -1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2393,7 +2393,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018146114}
-  m_LocalRotation: {x: 0.5244838, y: 0.0000000070837527, z: -0.0000000043636654, w: 0.85142046}
+  m_LocalRotation: {x: 0.5244838, y: -0.0000000070837527, z: 0.0000000043636654, w: 0.85142046}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2525,7 +2525,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073512559}
-  m_LocalRotation: {x: 0.51808566, y: -0.000000014711536, z: 0.0000000089110035, w: 0.85532874}
+  m_LocalRotation: {x: 0.51808566, y: 0.000000014717113, z: -0.0000000089143795, w: 0.85532874}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3080,7 +3080,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380944504}
-  m_LocalRotation: {x: 0.5488135, y: 0.000000066512065, z: -0.000000043666418, w: 0.8359449}
+  m_LocalRotation: {x: 0.5488136, y: -0.000000008736068, z: 0.0000000057353926, w: 0.83594483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3170,11 +3170,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3ea8e6157542044b58e38e7baaca16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingHealth: 100
+  type: 0
+  monsterData:
+    id: 0
+    name: 
+    damage: 0
+    hp: 0
+    rewards: []
   waterBall: {fileID: 6060344694332752735, guid: 1e1b70cef589a204196faedfe2b19942,
     type: 3}
   waterBallSpawn: {fileID: 1422663001}
   spawner: {fileID: 6552138539559621710, guid: e6215d9dfcfe3ce4c929663c09d1feee, type: 3}
-  slime_hp: 0
 --- !u!95 &1422663003
 Animator:
   serializedVersion: 5
@@ -3831,8 +3838,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa105b8d2d4d9244954e86cb185ba3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingHealth: 100
+  type: 0
+  monsterData:
+    id: 0
+    name: 
+    damage: 0
+    hp: 0
+    rewards: []
   spawner: {fileID: 1529522329}
-  slime_hp: 0
 --- !u!95 &1735084509
 Animator:
   serializedVersion: 5
@@ -3955,7 +3969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735084507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.16, y: 0.43, z: 0.41}
+  m_LocalPosition: {x: -16.977, y: 0.43, z: 0.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
