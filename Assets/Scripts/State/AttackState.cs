@@ -34,7 +34,8 @@ public class AttackState : State
         timePassed = 0f;
         character.animator.SetTrigger("attack");
         character.animator.SetFloat("speed", 0f);
-        Debug.Log("attack");
+
+        character.Fire();
 
     }
  

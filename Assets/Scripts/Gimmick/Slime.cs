@@ -9,11 +9,13 @@ public class Slime : MonoBehaviour
     public float slimeDistance = 2.0f;
     public float maxDistance = 5.0f;
     public Vector3 lastDir =- Vector3.back;
+
+    public Define.SlimeState state;
     
     private Rigidbody rb;
     private NavMeshAgent agent;
     private bool isMode = false;
-
+    
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -28,10 +30,29 @@ public class Slime : MonoBehaviour
             Following(player.transform.position);
         
     }
+
+
+    public void ChangeState(Define.SlimeState _state)
+    {
+        //이펙트
+        //슬라임 색 변환
+        state = _state;
+    }
+    
+    public void Fire()
+    {
+
+        GameObject go = Managers.Resource.Instantiate($"Projectile/{state.ToString()}");
+         go.GetComponent<Projectile>();
+
+    }
     
 
     public void HandGunMode(Transform tr, bool _isMode)
     {
+        if(isMode == true && _isMode == true)
+            return;
+        
         isMode = _isMode;
         if (_isMode)
         {

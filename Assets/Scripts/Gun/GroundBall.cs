@@ -6,15 +6,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
-public class GroundSlime_projectile : MonoBehaviour
+public class GroundBall : Projectile
 {
-    public LivingEntity owner;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.CompareTag("Wall")|| other.transform.CompareTag("Ground"))
         {
-            Destroy(gameObject);
+            Managers.Resource.Destroy(gameObject); 
         }
         else if(other.transform.CompareTag("Player"))
         {
@@ -34,7 +33,6 @@ public class GroundSlime_projectile : MonoBehaviour
                     {
                         dm = new DamageMessage() { amount = ((Monster)owner).monsterData.damage, damager = this.gameObject };
                         other.gameObject.GetComponent<PlayerCharacter>().ApplyDamage(dm);
-
                     }
                     break;
                 case Define.CreatureType.Gimmick:
@@ -44,7 +42,7 @@ public class GroundSlime_projectile : MonoBehaviour
             }
 
 
-            Destroy(gameObject);
+            Managers.Resource.Destroy(gameObject); 
         }
     }
 }

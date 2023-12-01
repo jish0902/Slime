@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterBall : MonoBehaviour
+public class WaterBall : Projectile
 {
-    public LivingEntity owner;
     void Update()
     {
         transform.Translate(Vector3.forward * 0.01f);
@@ -14,6 +13,7 @@ public class WaterBall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collided with: " + other. tag);
+        
         DamageMessage dm;
         
         switch (owner.type)
@@ -39,7 +39,7 @@ public class WaterBall : MonoBehaviour
         }
         
 
-        Destroy(gameObject);
+        Managers.Resource.Destroy(gameObject); 
 
         
         

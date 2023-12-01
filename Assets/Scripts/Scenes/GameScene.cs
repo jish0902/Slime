@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameScene : BaseScene
@@ -16,6 +17,12 @@ public class GameScene : BaseScene
 
         Debug.Log("초기화");
 
+    }
+
+    private void Update()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public override void Clear()

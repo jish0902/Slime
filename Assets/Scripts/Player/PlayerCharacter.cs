@@ -116,6 +116,12 @@ public class PlayerCharacter : LivingEntity
     {
         mySlime.HandGunMode(rightHand, isMode);
     }
+
+    public void Fire()
+    {
+        mySlime.Fire();
+    }
+    
     
     
 }
