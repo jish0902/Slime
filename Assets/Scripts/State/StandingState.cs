@@ -36,6 +36,9 @@ public class StandingState: State
         playerSpeed = character.playerSpeed;
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;    
+        
+        Debug.Log("슬라임!!!!!!!");
+        character.SetSlimeToPos(false);
     }
  
     public override void HandleInput()

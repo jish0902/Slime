@@ -21,7 +21,7 @@ public class DataManager
 
     //public static Dictionary<int, Data.ItemData> ItemDict { get; private set; } = new Dictionary<int, Data.ItemData>();
     public static Dictionary<int, MonsterData> MonsterDict { get; private set; } = new();
-    public PlayerData PlayerData { get; private set; } = new();
+    public static Dictionary<int,PlayerData> PlayerData { get; private set; } = new();
 
     public void Init()
     {
@@ -31,6 +31,7 @@ public class DataManager
 
     public static void LoadData()
     {
+        PlayerData = LoadJson<PlayerLoader, int, PlayerData>("PlayerData").MakeDict();
         MonsterDict = LoadJson<MonsterLoader, int, MonsterData>("MonsterData").MakeDict();
     }
 

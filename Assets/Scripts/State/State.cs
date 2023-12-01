@@ -38,7 +38,7 @@ public class State
     {
         //StateUI.instance.SetStateText(this.ToString());
         
-        Debug.Log("Enter State: "+this.ToString());
+        //Debug.Log("Enter State: "+this.ToString());
     }
  
     public virtual void HandleInput()

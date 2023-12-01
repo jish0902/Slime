@@ -20,6 +20,9 @@ public class CombatState : State
     {
         base.Enter();
  
+        Debug.Log("슬라임!!!!!!!");
+        character.SetSlimeToPos(true);
+            
         sheathWeapon = false;
         input = Vector2.zero;
         currentVelocity = Vector3.zero;
@@ -76,7 +79,8 @@ public class CombatState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
- 
+        
+
         gravityVelocity.y += gravityValue * Time.deltaTime;
         grounded = character.controller.isGrounded;
  
@@ -98,7 +102,7 @@ public class CombatState : State
     public override void Exit()
     {
         base.Exit();
- 
+
         gravityVelocity.y = 0f;
         character.playerVelocity = new Vector3(input.x, 0, input.y);
  

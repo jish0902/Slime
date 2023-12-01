@@ -1,7 +1,20 @@
+using Server.Data;
 using UnityEngine;
 public class AttackState : State
 {
-    private float coolTiome => Managers.Data.PlayerData.coolTime;
+    private float coolTiome
+    {
+        get
+        {
+            PlayerData pd;
+            if (DataManager.PlayerData.TryGetValue(0, out pd) == true)
+            {
+                return pd.coolTime;
+            }
+
+            return 1f;
+        }
+    }
     float timePassed;
     float clipLength;
     float clipSpeed;
@@ -21,6 +34,8 @@ public class AttackState : State
         timePassed = 0f;
         character.animator.SetTrigger("attack");
         character.animator.SetFloat("speed", 0f);
+        Debug.Log("attack");
+
     }
  
     public override void HandleInput()
@@ -51,7 +66,6 @@ public class AttackState : State
         // }
 
 
-        Debug.Log("attack");
         if (timePassed >= coolTiome)
         {
             stateMachine.ChangeState(character.combatting);

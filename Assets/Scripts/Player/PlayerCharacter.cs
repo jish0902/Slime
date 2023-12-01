@@ -21,7 +21,12 @@ public class PlayerCharacter : LivingEntity
     public float rotationDampTime = 0.2f;
     [Range(0, 1)]
     public float airControl = 0.5f;
- 
+
+    [Header("InGamePos")] 
+    public Transform rightHand;
+
+    public Slime mySlime;
+    
     public StateMachine movementSM;
     public StandingState standing;
     public JumpingState jumping;
@@ -31,7 +36,7 @@ public class PlayerCharacter : LivingEntity
     public SprintJumpState sprintjumping;
     public CombatState combatting;
     public AttackState attacking;
-    
+
     [HideInInspector]
     public float gravityValue = -9.81f;
     [HideInInspector]
@@ -82,6 +87,9 @@ public class PlayerCharacter : LivingEntity
         //Managers.UI.UpdateHealthText(dead ? 0f : health);
     }
 
+    
+    
+    
     public override bool ApplyDamage(DamageMessage damageMessage)
     {
         if (!base.ApplyDamage(damageMessage)) return false;
@@ -102,4 +110,12 @@ public class PlayerCharacter : LivingEntity
     {
         movementSM.currentState.PhysicsUpdate();
     }
+
+
+    public void SetSlimeToPos(bool isMode)
+    {
+        mySlime.HandGunMode(rightHand, isMode);
+    }
+    
+    
 }

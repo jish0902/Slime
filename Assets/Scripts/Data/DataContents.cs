@@ -75,17 +75,7 @@ namespace Server.Data
         public string prefabPath;
     }
     
-    [Serializable]
-    public class PlayerData
-    {
-        public string name;
-        public float damage;
-        public int hp;
-        public List<RewardData> rewards;
-        public float coolTime = 0.1f;
-
-    }
-
+   
     [Serializable]
     public class MonsterLoader : ILoader<int, MonsterData>
     {
@@ -95,6 +85,32 @@ namespace Server.Data
         {
             var dict = new Dictionary<int, MonsterData>();
             foreach (var monster in monsters) dict.Add(monster.id, monster);
+            return dict;
+        }
+    }
+
+    #endregion
+
+    #region Player
+    [Serializable]
+    public class PlayerData
+    {
+        public int id;
+        public string name;
+        public float damage;
+        public int hp;
+        public float coolTime = 0.1f;
+
+    }
+
+    public class PlayerLoader : ILoader<int, PlayerData>
+    {
+        public List<PlayerData> player = new();
+
+        public Dictionary<int, PlayerData> MakeDict()
+        {
+            var dict = new Dictionary<int, PlayerData>();
+            foreach (var p in player) dict.Add(p.id, p);
             return dict;
         }
     }
