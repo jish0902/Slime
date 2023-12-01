@@ -35,5 +35,15 @@ public class Define
         Monster,
         Gimmick
     }
+
+    public enum SlimeState
+    {
+        water,
+        fire,
+        soil,
+        smoke,
+        metal,
+        tree,
+    }
     
 }

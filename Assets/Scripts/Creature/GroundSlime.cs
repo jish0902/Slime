@@ -145,8 +145,8 @@ public class GroundSlime : Monster
                 Quaternion toRotate = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate, rotationSpeed * Time.deltaTime);
                 var InstProj = Instantiate(projectile, Launcher.position, Launcher.rotation);
-                InstProj.GetComponent<Rigidbody>().velocity = Launcher.up * distance*launchingVelocity;
-                InstProj.GetComponent<GroundSlime_projectile>().owner = this;
+                InstProj.GetComponent<Rigidbody>().velocity = Launcher.up * (distance * launchingVelocity);
+                InstProj.GetComponent<GroundBall>().owner = this;
             }
         }
         
