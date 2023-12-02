@@ -1,3 +1,4 @@
+using Server.Data;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +27,10 @@ public class PlayerCharacter : LivingEntity
     public Transform rightHand;
 
     public Slime mySlime;
+    public PlayerData playerData;
+    
+    
+    
     
     public StateMachine movementSM;
     public StandingState standing;
@@ -75,6 +80,11 @@ public class PlayerCharacter : LivingEntity
  
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
+
+        if (DataManager.PlayerData.TryGetValue(0, out playerData) == false)
+        {
+            Debug.LogError("DATA ERROR");
+        }
     }
     
     protected override void OnEnable()

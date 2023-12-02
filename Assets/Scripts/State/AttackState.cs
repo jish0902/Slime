@@ -6,13 +6,7 @@ public class AttackState : State
     {
         get
         {
-            PlayerData pd;
-            if (DataManager.PlayerData.TryGetValue(0, out pd) == true)
-            {
-                return pd.coolTime;
-            }
-
-            return 1f;
+            return character.playerData.coolTime;
         }
     }
     float timePassed;
@@ -35,6 +29,7 @@ public class AttackState : State
         character.animator.SetTrigger("attack");
         character.animator.SetFloat("speed", 0f);
 
+        Debug.Log("공격");
         character.Fire();
 
     }

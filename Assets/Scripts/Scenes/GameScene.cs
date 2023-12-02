@@ -16,6 +16,8 @@ public class GameScene : BaseScene
         Screen.SetResolution(1980, 1080, true);
 
         Debug.Log("초기화");
+        
+        Managers.Init();
 
     }
 

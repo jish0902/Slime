@@ -16,6 +16,7 @@ TagManager:
   - FireWall
   - IceWall
   - Ground
+  - Monster
   layers:
   - Default
   - TransparentFX

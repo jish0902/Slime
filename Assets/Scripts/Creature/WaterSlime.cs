@@ -10,7 +10,6 @@ public class WaterSlime : Monster
     Animator animator;
     
     GameObject player;
-    public GameObject waterBall;
     public GameObject waterBallSpawn;
     public GameObject spawner;
 
@@ -84,7 +83,9 @@ public class WaterSlime : Monster
             //물슬라임의 경우 물 구체 프리팹을 발사하고 플레이어가 맞는다면 hp감소
             if (attackRange >= distance_of_slime_to_player)
             {
-                GameObject go =  Instantiate(waterBall, waterBallSpawn.transform.position, waterBallSpawn.transform.rotation);
+                GameObject go = Managers.Resource.Instantiate("Projectile/WaterBall");
+                go.transform.position = waterBallSpawn.transform.position;
+                go.transform.rotation = waterBallSpawn.transform.rotation;
                 go.GetComponent<WaterBall>().owner = this;
             }
         }
@@ -96,7 +97,8 @@ public class WaterSlime : Monster
     {
         //hp가 0일시 어떤 상태이든 isDead로
         animator.SetTrigger("isDead");
-        Destroy(gameObject, death_motion_time);
+        //애니? 
+        Managers.Destroy(gameObject);
         base.Die();
         
         

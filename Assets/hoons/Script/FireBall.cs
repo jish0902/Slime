@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class playerFire : MonoBehaviour
+public class FireBall : MonoBehaviour
 {
     void Update()
     {

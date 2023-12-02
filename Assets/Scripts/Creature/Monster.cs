@@ -13,7 +13,7 @@ public class Monster : LivingEntity
             Debug.LogError("data is null");
         
         dead = false;
-        health = monsterData.maxHp;
+        health = monsterData.maxhp;
     }
 
     public override void Die()

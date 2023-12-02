@@ -4,14 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.HID;
 
-public class GroundSlime : Monster
+public class SoilSlime : Monster
 { 
     NavMeshAgent agent;
     Animator animator;
 
     GameObject player;
     public GameObject spawner;
-    public GameObject projectile;
     public Transform Launcher;
     public Transform Player;
     public float launchingVelocity;
@@ -144,16 +143,21 @@ public class GroundSlime : Monster
                 float distance = Vector3.Distance(player.transform.position, transform.position);
                 Quaternion toRotate = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate, rotationSpeed * Time.deltaTime);
-                var InstProj = Instantiate(projectile, Launcher.position, Launcher.rotation);
-                InstProj.GetComponent<Rigidbody>().velocity = Launcher.up * (distance * launchingVelocity);
-                InstProj.GetComponent<GroundBall>().owner = this;
+                
+                
+                GameObject go = Managers.Resource.Instantiate("Projectile/SoilBall");
+                go.transform.position = Launcher.transform.position;
+                go.transform.rotation = Launcher.transform.rotation;
+                
+                go.GetComponent<Rigidbody>().velocity = Launcher.up * (distance * launchingVelocity);
+                go.GetComponent<GroundBall>().owner = this;
             }
         }
         
 
     }
 
-
+    
 
 
     void Idle_to_Chasing()

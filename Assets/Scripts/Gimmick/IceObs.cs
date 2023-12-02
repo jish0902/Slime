@@ -13,4 +13,7 @@ public class IceObs : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    
+    
 }
