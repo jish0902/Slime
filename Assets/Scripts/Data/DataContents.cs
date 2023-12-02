@@ -65,13 +65,13 @@ namespace Server.Data
     {
         public int id;
         public string name;
-        public int maxhp;
-        public string type;  //AttributeType
+        public int maxHp;
+        public AttributeType type;
         public float attackRange;
-        public float Damage;
+        public float damage;
         public float attackSpeed;
-        public string weakness; //AttributeType
-        public string rewards; //List<RewardData>
+        public AttributeType weakness;
+        public List<RewardData> rewards;
         public string prefabPath;
     }
     
@@ -92,7 +92,6 @@ namespace Server.Data
     #endregion
 
     #region Player
-    
     [Serializable]
     public class PlayerData
     {
@@ -101,16 +100,17 @@ namespace Server.Data
         public float damage;
         public int hp;
         public float coolTime = 0.1f;
+
     }
-    [Serializable]
+
     public class PlayerLoader : ILoader<int, PlayerData>
     {
-        public List<PlayerData> players = new();
+        public List<PlayerData> player = new();
 
         public Dictionary<int, PlayerData> MakeDict()
         {
             var dict = new Dictionary<int, PlayerData>();
-            foreach (var p in players) dict.Add(p.id, p);
+            foreach (var p in player) dict.Add(p.id, p);
             return dict;
         }
     }

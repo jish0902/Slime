@@ -1,18 +1,9 @@
-{
-   "players" : [
-      {
-         "id":0,
-         "name":"player",
-         "damage":5,
-         "hp":5,
-         "coolTime":0.1
-      },
-      {
-         "id":1,
-         "name":"player",
-         "damage":5,
-         "hp":5,
-         "coolTime":0.1
-      }
-   ]
-}
+[
+   {
+      "id":0,
+      "name":"player",
+      "damage":5,
+      "hp":5,
+      "coolTime":0.1
+   }
+]

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,29 +5,21 @@ using UnityEngine.AI;
 
 public class Slime : MonoBehaviour
 {
-    public GameObject player;
+    public Transform player;
     public float slimeDistance = 2.0f;
     public float maxDistance = 5.0f;
     public Vector3 lastDir =- Vector3.back;
 
-    public Define.SlimeState state = Define.SlimeState.None;
+    public Define.SlimeState state;
     
     private Rigidbody rb;
     private NavMeshAgent agent;
     private bool isMode = false;
-    private PlayerCharacter pc;
-
-
-    [Header("InGame")] 
-    public int WaterSpeed = 10;
-    public int FireSpeed = 10;
-    public int SoilSpeed = 10;
     
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        pc = player.GetComponent<PlayerCharacter>();
     }
     void Update()
     {
@@ -50,6 +41,7 @@ public class Slime : MonoBehaviour
     
     public void Fire()
     {
+<<<<<<< HEAD
         string target = $"Projectile/{state.ToString()}Ball";
         Debug.Log(target);
         GameObject go = Managers.Resource.Instantiate(target);
@@ -86,6 +78,11 @@ public class Slime : MonoBehaviour
         }
         
         
+=======
+
+        GameObject go = Managers.Resource.Instantiate($"Projectile/{state.ToString()}");
+         go.GetComponent<Projectile>();
+>>>>>>> parent of 7d17af6 (Bullet 재구성)
 
     }
     
@@ -95,26 +92,23 @@ public class Slime : MonoBehaviour
         if(isMode == true && _isMode == true)
             return;
         
-        if(isMode == false && _isMode == false)
-            return;
-        
         isMode = _isMode;
         if (_isMode)
         {
             AgentPause();
-            agent.enabled = false;
-            rb.isKinematic = true;
+            rb.useGravity = false;
+            agent.baseOffset = 1f;
 
             transform.position = tr.position;
             transform.parent = tr;
         }
         else
         {
-            rb.isKinematic = false;
-            agent.enabled = true;
+            AgentResume();
+            rb.useGravity = true;
+            agent.baseOffset = 0.1f;
             transform.position = transform.position = player.transform.position + lastDir;
             transform.parent = null;
-            AgentResume();
         }
     }
     
@@ -151,7 +145,7 @@ public class Slime : MonoBehaviour
     private void AgentResume()
     {
         agent.isStopped= false;
-        agent?.SetDestination(player.transform.position);
+        agent?.SetDestination(player.position);
     }
 
 

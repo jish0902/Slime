@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 9163788636582232691}
   - component: {fileID: 8817190100935845296}
   m_Layer: 0
-  m_Name: SoilSlime
-  m_TagString: Monster
+  m_Name: GroundSlime
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

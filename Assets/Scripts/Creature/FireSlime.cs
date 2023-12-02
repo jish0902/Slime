@@ -81,7 +81,7 @@ public class FireSlime : Monster
         {
             //player.GetComponent<PlayerCharacter>().player_HP -= 1;
 
-            DamageMessage dm = new DamageMessage() { amount = monsterData.Damage, damager = this.gameObject, };
+            DamageMessage dm = new DamageMessage() { amount = monsterData.damage, damager = this.gameObject, };
             player.GetComponent<PlayerCharacter>().ApplyDamage(dm);
             Debug.Log(player.GetComponent<PlayerCharacter>().health);
         }

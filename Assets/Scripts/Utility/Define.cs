@@ -38,13 +38,12 @@ public class Define
 
     public enum SlimeState
     {
-        None,
-        Water,
-        Fire,
-        Soil,
-        Smoke,
-        Metal,
-        Tree,
+        water,
+        fire,
+        soil,
+        smoke,
+        metal,
+        tree,
     }
     
 }

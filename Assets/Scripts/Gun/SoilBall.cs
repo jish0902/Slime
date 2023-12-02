@@ -8,45 +8,45 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class SoilBall : Projectile
 {
+<<<<<<< HEAD:Assets/Scripts/Gun/SoilBall.cs
  
+=======
+
+>>>>>>> parent of 7d17af6 (Bullet 재구성):Assets/Scripts/Gun/GroundBall.cs
     private void OnTriggerEnter(Collider other)
     {
-        
-        DamageMessage dm;
-        
-        switch (owner.type)
+        if(other.transform.CompareTag("Wall")|| other.transform.CompareTag("Ground"))
         {
-            case Define.CreatureType.Player:
-                if (other.CompareTag("Wall"))
-                {
-                    Managers.Resource.Destroy(gameObject); 
-                }
-                else if (other.CompareTag("Monster"))
-                {
-                    //내가 플레이어고 상대가 몬스터 일 떄
-                    dm = new DamageMessage() { amount = ((PlayerCharacter)owner).playerData.damage , damager = this.gameObject };
-                    other.gameObject.GetComponent<Monster>().ApplyDamage(dm);
-                }
-                
-                break;
-            case Define.CreatureType.Monster:
-                if (other.CompareTag("Wall"))
-                {
-                    Managers.Resource.Destroy(gameObject); 
-                }
-                else if (other.CompareTag("Player"))
-                {
-                    dm = new DamageMessage() { amount = ((Monster)owner).monsterData.Damage, damager = this.gameObject };
-                    other.gameObject.GetComponent<PlayerCharacter>().ApplyDamage(dm);
-                }
-                break;
-            case Define.CreatureType.Gimmick:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            Managers.Resource.Destroy(gameObject); 
         }
-        
-        
-       
+        else if(other.transform.CompareTag("Player"))
+        {
+            Debug.Log("Collided with: " + other.tag);
+            DamageMessage dm;
+
+            switch (owner.type)
+            {
+                case Define.CreatureType.Player:
+                    break;
+                case Define.CreatureType.Monster:
+                    if (other.CompareTag("Wall"))
+                    {
+
+                    }
+                    else if (other.CompareTag("Player"))
+                    {
+                        dm = new DamageMessage() { amount = ((Monster)owner).monsterData.damage, damager = this.gameObject };
+                        other.gameObject.GetComponent<PlayerCharacter>().ApplyDamage(dm);
+                    }
+                    break;
+                case Define.CreatureType.Gimmick:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
+            Managers.Resource.Destroy(gameObject); 
+        }
     }
 }

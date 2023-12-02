@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.HID;
 
-public class SoilSlime : Monster
+public class GroundSlime : Monster
 { 
     NavMeshAgent agent;
     Animator animator;
 
     GameObject player;
     public GameObject spawner;
+    public GameObject projectile;
     public Transform Launcher;
     public Transform Player;
     public float launchingVelocity;
@@ -143,6 +144,7 @@ public class SoilSlime : Monster
                 float distance = Vector3.Distance(player.transform.position, transform.position);
                 Quaternion toRotate = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate, rotationSpeed * Time.deltaTime);
+<<<<<<< HEAD:Assets/Scripts/Creature/SoilSlime.cs
                 
                 
                 GameObject go = Managers.Resource.Instantiate("Projectile/SoilBall");
@@ -151,13 +153,18 @@ public class SoilSlime : Monster
                 
                 go.GetComponent<Rigidbody>().velocity = Launcher.up * (distance * launchingVelocity);
                 go.GetComponent<SoilBall>().owner = this;
+=======
+                var InstProj = Instantiate(projectile, Launcher.position, Launcher.rotation);
+                InstProj.GetComponent<Rigidbody>().velocity = Launcher.up * (distance * launchingVelocity);
+                InstProj.GetComponent<GroundBall>().owner = this;
+>>>>>>> parent of 7d17af6 (Bullet 재구성):Assets/Scripts/Creature/GroundSlime.cs
             }
         }
         
 
     }
 
-    
+
 
 
     void Idle_to_Chasing()

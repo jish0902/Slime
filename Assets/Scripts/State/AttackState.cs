@@ -6,7 +6,13 @@ public class AttackState : State
     {
         get
         {
-            return character.playerData.coolTime;
+            PlayerData pd;
+            if (DataManager.PlayerData.TryGetValue(0, out pd) == true)
+            {
+                return pd.coolTime;
+            }
+
+            return 1f;
         }
     }
     float timePassed;
@@ -29,7 +35,10 @@ public class AttackState : State
         character.animator.SetTrigger("attack");
         character.animator.SetFloat("speed", 0f);
 
+<<<<<<< HEAD
         //Debug.Log("공격");
+=======
+>>>>>>> parent of 7d17af6 (Bullet 재구성)
         character.Fire();
 
     }

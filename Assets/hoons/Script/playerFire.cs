@@ -3,7 +3,11 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+<<<<<<< HEAD:Assets/hoons/Script/FireBall.cs
 public class FireBall : Projectile
+=======
+public class playerFire : MonoBehaviour
+>>>>>>> parent of 7d17af6 (Bullet 재구성):Assets/hoons/Script/playerFire.cs
 {
  
     protected override void Move()

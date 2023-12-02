@@ -1,4 +1,3 @@
-using Server.Data;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,9 +26,12 @@ public class PlayerCharacter : LivingEntity
     public Transform rightHand;
     public Vector3 Dir;
     public Slime mySlime;
+<<<<<<< HEAD
     public PlayerData playerData;
     
     
+=======
+>>>>>>> parent of 7d17af6 (Bullet 재구성)
     
     public StateMachine movementSM;
     public StandingState standing;
@@ -79,11 +81,6 @@ public class PlayerCharacter : LivingEntity
  
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
-
-        if (DataManager.PlayerData.TryGetValue(0, out playerData) == false)
-        {
-            Debug.LogError("DATA ERROR");
-        }
     }
     
     protected override void OnEnable()

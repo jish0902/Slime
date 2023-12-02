@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class WaterBall : Projectile
 {
-    
-    protected override void Move()
+    void Update()
     {
         Quaternion toRotate = Quaternion.LookRotation(Dir);
         transform.rotation = Quaternion.Slerp(transform.rotation, toRotate, speed * Time.deltaTime);
@@ -23,6 +22,7 @@ public class WaterBall : Projectile
         switch (owner.type)
         {
             case Define.CreatureType.Player:
+<<<<<<< HEAD
                 //플레이어가 쏠 때 
                 if (other.CompareTag("Wall"))
                 {
@@ -35,15 +35,17 @@ public class WaterBall : Projectile
                     other.gameObject.GetComponent<Monster>().ApplyDamage(dm);
                 }
                 
+=======
+>>>>>>> parent of 7d17af6 (Bullet 재구성)
                 break;
             case Define.CreatureType.Monster:
                 if (other.CompareTag("Wall"))
                 {
-                    Managers.Resource.Destroy(gameObject);
+                    
                 }
                 else if (other.CompareTag("Player"))
                 {
-                    dm = new DamageMessage() { amount = ((Monster)owner).monsterData.Damage, damager = this.gameObject };
+                    dm = new DamageMessage() { amount = ((Monster)owner).monsterData.damage, damager = this.gameObject };
                     other.gameObject.GetComponent<PlayerCharacter>().ApplyDamage(dm);
 
                 }

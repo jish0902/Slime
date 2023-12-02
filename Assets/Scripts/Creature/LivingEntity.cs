@@ -55,9 +55,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         
         dead = true;
     }
-
-
-   
+    
     
     
 }
