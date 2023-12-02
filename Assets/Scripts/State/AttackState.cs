@@ -29,7 +29,7 @@ public class AttackState : State
         character.animator.SetTrigger("attack");
         character.animator.SetFloat("speed", 0f);
 
-        Debug.Log("공격");
+        //Debug.Log("공격");
         character.Fire();
 
     }

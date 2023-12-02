@@ -3,33 +3,63 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class FireBall : MonoBehaviour
+public class FireBall : Projectile
 {
-    void Update()
+ 
+    protected override void Move()
     {
-        transform.Translate(Vector3.forward * 0.1f);
-    }
+        Quaternion toRotate = Quaternion.LookRotation(Dir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotate, speed * Time.deltaTime);
 
+        transform.Translate(Vector3.forward * (speed * Time.deltaTime));
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Wall"))
+        Debug.Log("Collided with: " + other. tag);
+        
+        DamageMessage dm;
+        
+        switch (owner.type)
         {
-            Destroy(gameObject);
-        }
-        else if (other.transform.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-            Destroy(other.gameObject);
+            case Define.CreatureType.Player:
+                //플레이어가 쏠 때 
+                if (other.CompareTag("Wall"))
+                {
+                    Managers.Resource.Destroy(gameObject);
+                }
+                else if (other.CompareTag("Monster"))
+                {
+                    //플레이어가 쏘고 몬스터가 맞았을때
+                    dm = new DamageMessage() { amount = ((PlayerCharacter)owner).playerData.damage , damager = this.gameObject };
+                    other.gameObject.GetComponent<Monster>().ApplyDamage(dm);
+                }
+                else if (other.transform.CompareTag("Torch"))
+                {
+                    Destroy(gameObject);
+                    if (other.transform.GetComponent<Light>().intensity < 10)
+                    {
+                        other.transform.GetComponent<Light>().intensity += 5;
+                    }
             
+                }
+                break;
+            case Define.CreatureType.Monster:
+                //몬스터가 쏠 떄
+                if (other.CompareTag("Wall"))
+                {
+                    Managers.Resource.Destroy(gameObject);
+                }
+                else if (other.CompareTag("Player"))
+                {
+                    dm = new DamageMessage() { amount = ((Monster)owner).monsterData.Damage, damager = this.gameObject };
+                    other.gameObject.GetComponent<PlayerCharacter>().ApplyDamage(dm);
+
+                }
+                break;
+           
+       
         }
-        else if (other.transform.CompareTag("Torch"))
-        {
-            Destroy(gameObject);
-            if (other.transform.GetComponent<Light>().intensity < 10)
-            {
-                other.transform.GetComponent<Light>().intensity += 5;
-            }
-            
-        }
+        
     }
 }

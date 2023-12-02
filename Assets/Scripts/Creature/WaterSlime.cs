@@ -87,6 +87,8 @@ public class WaterSlime : Monster
                 go.transform.position = waterBallSpawn.transform.position;
                 go.transform.rotation = waterBallSpawn.transform.rotation;
                 go.GetComponent<WaterBall>().owner = this;
+                
+                
             }
         }
         

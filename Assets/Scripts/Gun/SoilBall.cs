@@ -6,13 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
-public class GroundBall : Projectile
+public class SoilBall : Projectile
 {
-    protected override void Move()
-    {
-        base.Move();
-    }
-
+ 
     private void OnTriggerEnter(Collider other)
     {
         

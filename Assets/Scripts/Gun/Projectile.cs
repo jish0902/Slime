@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : MonoBehaviour
+{
 
+    public float speed = 5f;
     public float expiryTime = 0f;
     public LivingEntity owner;
-    public Vector3 Dir { get; protected set; }
+    public Vector3 Dir { get; set; }
     
     void Start ()
     {
@@ -23,11 +25,7 @@ public class Projectile : MonoBehaviour {
     protected virtual void Move()
     {
     }
-
-    public virtual void Init()
-    {
-        
-    }
+    
     public void DestroyInTime(float time)
     {
         Invoke(nameof(_t) ,time);

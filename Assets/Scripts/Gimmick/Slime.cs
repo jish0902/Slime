@@ -55,6 +55,7 @@ public class Slime : MonoBehaviour
         GameObject go = Managers.Resource.Instantiate(target);
         Projectile pj = go.GetComponent<Projectile>();
         pj.owner = pc;
+        pj.Dir = pc.Dir;
         
         switch (state)
         {
@@ -64,15 +65,17 @@ public class Slime : MonoBehaviour
                 break;
             
             case Define.SlimeState.Fire:
+                go.transform.position = transform.position;
+                go.transform.rotation = transform.rotation;
                 break;
             
             case Define.SlimeState.Soil:
                 float distance = 10f;
-                Quaternion toRotate = Quaternion.LookRotation(transform.forward);
                 pj.GetComponent<Rigidbody>().velocity = transform.up * (10f * SoilSpeed);
                 break;
             
             case Define.SlimeState.Smoke:
+                
                 break;
             case Define.SlimeState.Metal:
                 break;

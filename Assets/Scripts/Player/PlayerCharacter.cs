@@ -25,10 +25,9 @@ public class PlayerCharacter : LivingEntity
 
     [Header("InGamePos")] 
     public Transform rightHand;
-
+    public Vector3 Dir;
     public Slime mySlime;
     public PlayerData playerData;
-    
     
     
     
@@ -119,6 +118,7 @@ public class PlayerCharacter : LivingEntity
     private void FixedUpdate()
     {
         movementSM.currentState.PhysicsUpdate();
+
     }
 
 
@@ -129,6 +129,8 @@ public class PlayerCharacter : LivingEntity
 
     public void Fire()
     {
+        Dir = transform.forward;
+
         mySlime.Fire();
     }
     

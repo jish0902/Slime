@@ -150,7 +150,7 @@ public class SoilSlime : Monster
                 go.transform.rotation = Launcher.transform.rotation;
                 
                 go.GetComponent<Rigidbody>().velocity = Launcher.up * (distance * launchingVelocity);
-                go.GetComponent<GroundBall>().owner = this;
+                go.GetComponent<SoilBall>().owner = this;
             }
         }
         
